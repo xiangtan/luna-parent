@@ -149,5 +149,10 @@
 			<groupId>com.caucho</groupId>
 			<artifactId>hessian</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
 	</dependencies>
 </project>
