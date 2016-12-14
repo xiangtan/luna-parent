@@ -10,7 +10,9 @@ public class RoomRuntimeTest extends EnviromentSet {
 	public static final String ROOM_RUNTIME_KEY = "runtime:room:map";
 
 	public static void main(String[] args) {
-		put(100, "address 一百");
+		// put(100, "address 一百");
+		RoomRuntime runtime = (RoomRuntime) get(100);
+		System.out.println(runtime);
 	}
 
 	public static void put(int roomId, String liveSrvAddr) {
@@ -21,9 +23,9 @@ public class RoomRuntimeTest extends EnviromentSet {
 		roomRuntime.put(ROOM_RUNTIME_KEY, roomId + "", runtime);
 	}
 
-	public static void get(int roomId) {
+	public static Object get(int roomId) {
 		HashOperations<Object, Object, Object> roomRuntime = redisTemplate.opsForHash();
-		System.out.println(roomRuntime.get(ROOM_RUNTIME_KEY, Integer.toString(roomId)));
+		return roomRuntime.get(ROOM_RUNTIME_KEY, Integer.toString(roomId));
 	}
 }
 
@@ -56,6 +58,12 @@ class RoomRuntime implements Serializable {
 
 	public void setActiveTime(Date activeTime) {
 		this.activeTime = activeTime;
+	}
+
+	@Override
+	public String toString() {
+		return "RoomRuntime [liveRoomId=" + liveRoomId + ", liveSrvAddr=" + liveSrvAddr + ", activeTime=" + activeTime
+				+ "]";
 	}
 
 }
