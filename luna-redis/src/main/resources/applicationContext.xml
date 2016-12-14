@@ -18,7 +18,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<property name="maxIdle" value="${redis.maxIdle}" />
 		<property name="maxTotal" value="${redis.maxTotal}" />
@@ -33,12 +33,22 @@
 
 
 	<bean id="stringRedisSerializer"
-		class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+
+	<bean id="jdkRedisSerializer"
+		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+
+	<bean id="hessian2RedisSerializer"
+		class="com.luna.common.serializer.Hessian2Serializer"/>
+		
+	<bean id="
+		redisTemplate " class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<!-- 新增 -->
-		<property name="keySerializer" ref="stringRedisSerializer" />
-		<property name="hashKeySerializer" ref="stringRedisSerializer" />
+		<property name="defaultSerializer" ref="stringRedisSerializer" />
+		<!-- <property name="keySerializer" ref="stringRedisSerializer" /> -->
+		<!-- <property name="valueSerializer" ref="jdkRedisSerializer" /> <property 
+			name="hashKeySerializer" ref="jdkRedisSerializer" /> -->
+		<property name="hashValueSerializer" ref="hessian2RedisSerializer" />
 	</bean>
 
 	<context:annotation-config />

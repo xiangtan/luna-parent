@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.ZSetOperations;
 
 /**
- * Token释放
+ * Token释放s
  * 
  * @author liuyc
  *
@@ -47,7 +47,7 @@ public class TokenDeleteTest extends EnviromentSet {
 	 */
 	protected static void removeToken(int roomId, String token) {
 		long start = System.currentTimeMillis();
-		ZSetOperations<String, String> room = redisTemplate.opsForZSet();
+		ZSetOperations<Object, Object> room = redisTemplate.opsForZSet();
 		long tokenCount = room.remove(ROOM_KEY_PREFIX + roomId, token);
 		System.out.println("remove " + tokenCount + " tokens operation takes " + (System.currentTimeMillis() - start)
 				+ " ms , [Room,Token]  : [" + ROOM_KEY_PREFIX + roomId + " , " + token + "]");

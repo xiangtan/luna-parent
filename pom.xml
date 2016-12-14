@@ -36,6 +36,8 @@
 		<fastonz-slice.version>1.0.1-SNAPSHOT</fastonz-slice.version>
 		<spring-data-redis.version>1.6.4.RELEASE</spring-data-redis.version>
 		<redis.clients.version>2.8.0</redis.clients.version>
+		<kryo.version>4.0.0</kryo.version>
+		<hessian.version>4.0.38</hessian.version>
 	</properties>
 
 	<dependencyManagement>
@@ -274,6 +276,16 @@
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
 				<version>${redis.clients.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.esotericsoftware</groupId>
+				<artifactId>kryo</artifactId>
+				<version>${kryo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>${hessian.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
