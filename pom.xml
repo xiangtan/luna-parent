@@ -564,5 +564,6 @@
 	<modules>
 		<module>luna-common</module>
 		<module>luna-redis</module>
+		<module>luna-loadbalance</module>
 	</modules>
 </project>
