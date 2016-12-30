@@ -1,11 +1,13 @@
 package com.luna.redis.test;
 
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
  * 房间点数
@@ -28,16 +30,20 @@ public class RoomUserCountTest extends EnviromentSet {
 	 * @return
 	 */
 	private static long countUser(int roomId) {
-		long start = System.currentTimeMillis();
-		ZSetOperations<Object, Object> room = redisTemplate.opsForZSet();
-		long point = room.count(ROOM_KEY_PREFIX + roomId, System.currentTimeMillis() - HEARTBEAT_EXPIRE,
-				System.currentTimeMillis());
-		System.out.println("count room users operation takes " + (System.currentTimeMillis() - start)
-				+ " ms , [Room,point]  : [" + ROOM_KEY_PREFIX + roomId + " , " + point + "]");
-		return point;
+	return 0;
 	}
 
 	public static void main(String[] args) {
+		ValueOperations<Object, Object> valueOps = redisTemplate.opsForValue();
+		//valueOps.set("token:count:in:liveroom:id:2","0");
+valueOps.increment("token:count:in:liveroom:id:3",-190);
+	//long result =(long) valueOps.get("token:count:in:liveroom:id:2");
+
+
+		System.out.println(getIncrValue("token:count:in:liveroom:id:1"));
+		
+		
+		/*
 		for (int i = 0; i < T_NUM; i++) {
 			services.submit(new Runnable() {
 				public void run() {
@@ -54,5 +60,24 @@ public class RoomUserCountTest extends EnviromentSet {
 
 			});
 		}
+	*/}
+	
+	public static long getIncrValue(final String key) {  
+	      
+	    return redisTemplate.execute(new RedisCallback<Long>() {  
+	        @Override  
+	        public Long doInRedis(RedisConnection connection) throws DataAccessException {  
+	            RedisSerializer<String> serializer=redisTemplate.getStringSerializer();  
+	            byte[] rowkey=serializer.serialize(key);  
+	            byte[] rowval=connection.get(rowkey);  
+	            try {  
+	                String val=serializer.deserialize(rowval);  
+	                return Long.parseLong(val);  
+	            } catch (Exception e) {  
+	                return 0L;  
+	            }  
+	        }  
+	    });  
 	}
+	 
 }
