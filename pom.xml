@@ -38,6 +38,7 @@
 		<redis.clients.version>2.8.0</redis.clients.version>
 		<kryo.version>4.0.0</kryo.version>
 		<hessian.version>4.0.38</hessian.version>
+		<curator.version>3.2.1</curator.version>
 	</properties>
 
 	<dependencyManagement>
@@ -286,6 +287,12 @@
 				<groupId>com.caucho</groupId>
 				<artifactId>hessian</artifactId>
 				<version>${hessian.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-recipes</artifactId>
+				<version>${curator.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -565,5 +572,6 @@
 		<module>luna-common</module>
 		<module>luna-redis</module>
 		<module>luna-loadbalance</module>
+		<module>luna-zk</module>
 	</modules>
 </project>

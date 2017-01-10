@@ -21,6 +21,7 @@ import com.fsmeeting.luna.load.model.IP;
  * @author yicai.liu<moon>
  *
  */
+
 public class WeightRoundRobinStrategy implements ILoadStrategy {
 	private static Integer pos;
 
