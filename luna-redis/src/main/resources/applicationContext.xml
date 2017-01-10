@@ -35,11 +35,21 @@
 	<bean id="stringRedisSerializer"
 		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+	<bean id="jdkRedisSerializer"
+		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+
+	<bean id="hessian2RedisSerializer" class="com.luna.common.serializer.Hessian2Serializer" />
+
+	<bean id="kryoRedisSerializer" class="com.luna.common.serializer.KryoSerializer" />
+
+	<bean id="
+		redisTemplate " class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="keySerializer" ref="stringRedisSerializer" />
-		<!-- <property name="valueSerializer" ref="stringRedisSerializer" /> -->
-		<property name="hashKeySerializer" ref="stringRedisSerializer" />
+		<property name="defaultSerializer" ref="stringRedisSerializer" />
+		<!-- <property name="keySerializer" ref="stringRedisSerializer" /> -->
+		<!-- <property name="valueSerializer" ref="jdkRedisSerializer" /> <property 
+			name="hashKeySerializer" ref="jdkRedisSerializer" /> -->
+		<property name="hashValueSerializer" ref="kryoRedisSerializer" />
 	</bean>
 
 	<context:annotation-config />

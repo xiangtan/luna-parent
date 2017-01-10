@@ -30,25 +30,58 @@ public class CuratorClientTest {
 		System.out.println("zk client start successfully!");
 
 		// 2.Client API test
-		// 2.1 Create node
+		createNode(client);// 创建节点
+		getNode(client);// 获取节点信息
+		modifyNode(client);// 修改节点信息
+		removeNode(client);// 删除节点信息
+	}
+
+	/**
+	 * 创建节点
+	 * 
+	 * @param client
+	 * @throws Exception
+	 */
+	public static void createNode(CuratorFramework client) throws Exception {
 		String data1 = "hello";
 		print("create", Constant.ZK_PATH, data1);
 		client.create().creatingParentsIfNeeded().forPath(Constant.ZK_PATH, data1.getBytes());
+	}
 
-		// 2.2 Get node and data
+	/**
+	 * 获取节点、节点数据
+	 * 
+	 * @param client
+	 * @throws Exception
+	 */
+	public static void getNode(CuratorFramework client) throws Exception {
 		print("ls", "/");
 		print(client.getChildren().forPath("/"));
 		print("get", Constant.ZK_PATH);
 		print(client.getData().forPath(Constant.ZK_PATH));
+	}
 
-		// 2.3 Modify data
+	/**
+	 * 修改节点信息
+	 * 
+	 * @param client
+	 * @throws Exception
+	 */
+	public static void modifyNode(CuratorFramework client) throws Exception {
 		String data2 = "world";
 		print("set", Constant.ZK_PATH, data2);
 		client.setData().forPath(Constant.ZK_PATH, data2.getBytes());
 		print("get", Constant.ZK_PATH);
 		print(client.getData().forPath(Constant.ZK_PATH));
+	}
 
-		// 2.4 Remove node
+	/**
+	 * 删除节点信息
+	 * 
+	 * @param client
+	 * @throws Exception
+	 */
+	public static void removeNode(CuratorFramework client) throws Exception {
 		print("delete", Constant.ZK_PATH);
 		client.delete().forPath(Constant.ZK_PATH);
 		print("ls", "/");
