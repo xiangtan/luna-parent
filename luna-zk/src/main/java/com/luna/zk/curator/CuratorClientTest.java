@@ -3,6 +3,7 @@ package com.luna.zk.curator;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.RetryNTimes;
+import org.apache.zookeeper.data.Stat;
 
 /**
  * <pre>
@@ -28,12 +29,17 @@ public class CuratorClientTest {
 		CuratorFramework client = CuratorFrameworkFactory.newClient(Constant.ZK_ADDRESS, new RetryNTimes(5, 2000));
 		client.start();
 		System.out.println("zk client start successfully!");
-
+		//client.create().creatingParentsIfNeeded().forPath(Constant.ZK_PATH);
+		Stat stat = client.checkExists().forPath(Constant.ZK_PATH);
+		System.out.println(stat);
+		//client.delete().guaranteed().deletingChildrenIfNeeded().forPath(Constant.ZK_PATH);
+		System.out.println(client.getState().name());
+		;
 		// 2.Client API test
-		createNode(client);// 创建节点
-		getNode(client);// 获取节点信息
-		modifyNode(client);// 修改节点信息
-		removeNode(client);// 删除节点信息
+		//createNode(client);// 创建节点
+		// getNode(client);// 获取节点信息
+		// modifyNode(client);// 修改节点信息
+		// removeNode(client);// 删除节点信息
 	}
 
 	/**
